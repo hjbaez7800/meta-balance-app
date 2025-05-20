@@ -103,3 +103,7 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
+@app.get("/")
+def root():
+    return {"message": "Meta Balance backend is live."}
+
