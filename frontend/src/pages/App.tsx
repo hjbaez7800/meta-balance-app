@@ -611,15 +611,16 @@ try {
               fiber: formDataFromLookup.fiber,
               sugar: formDataFromLookup.sugar,
           }
-          console.log("Triggering individual score calculation with AI data:", nutritionDataForCalc);
-          const errorMessage = error.message || "An unexpected error occurred during lookup.";
-          setLookupError(errorMessage);
-          setCalculationItemError(errorMessage); // Also set calc error as analysis couldn't run
-          toast.error(`Lookup Failed: ${errorMessage}`, { id: toastId });
-        }
-        } finally {
-          console.log("handleAutoFillRequest finished.");
-        } 
+            } catch (error) {
+              console.log("Triggering individual score calculation with AI data:", nutritionDataForCalc);
+              const errorMessage = error.message || "An unexpected error occurred during lookup.";
+              setLookupError(errorMessage);
+              setCalculationItemError(errorMessage); // Also set calc error as analysis couldn't run
+              toast.error(`Lookup Failed: ${errorMessage}`, { id: toastId });
+            } finally {
+              console.log("handleAutoFillRequest finished.");
+  }
+
   }
 
   // --- Handler for Voice Input --- (Keep as is, with simplified logging)
