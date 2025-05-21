@@ -613,17 +613,14 @@ try {
           }
           console.log("Triggering individual score calculation with AI data:", nutritionDataForCalc);
           await calculateIndividualScore(nutritionDataForCalc, itemName); // Use the helper
-
-      } catch (err: any) {
-          console.error("Error during AI food lookup:", err);
-          const errorMessage = err.message || "An unexpected error occurred during lookup.";
+          const errorMessage = error.message || "An unexpected error occurred during lookup.";
           setLookupError(errorMessage);
           setCalculationItemError(errorMessage); // Also set calc error as analysis couldn't run
           toast.error(`Lookup Failed: ${errorMessage}`, { id: toastId });
-      } finally {
+        } finally {
           setIsLookingUp(false);
           console.log("handleAutoFillRequest finished.");
-      } //
+        } 
   }
 
   // --- Handler for Voice Input --- (Keep as is, with simplified logging)
