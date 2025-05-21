@@ -528,28 +528,46 @@ export default function App() {
 
       try {
           // --- Call Backend Endpoint ---
-          console.log(`Calling brain.chatgpt_food_lookup with item: "${itemName}"`);
-          // Import the specific response type for better type safety
-          const response = await brain.chatgpt_food_lookup({ food_name: itemName });
-          console.log("Received response from brain.chatgpt_food_lookup:", response);
+         const RENDER_BACKEND_URL = "https://meta-balance-app.onrender.com";
 
-          if (!response.ok) {
-              let errorDetail = "AI lookup failed.";
-              try {
-                  const errorData = await response.json();
-                  // Attempt to get detail from FastAPI's HTTPValidationError structure or a simple detail string
-                  if (errorData?.detail) {
-                      if (Array.isArray(errorData.detail)) {
-                          errorDetail = errorData.detail.map((d: any) => `${d.loc?.join('.') || 'field'} - ${d.msg || 'error'}`).join('; ');
-                      } else {
-                          errorDetail = String(errorData.detail);
-                      }
-                  } else {
-                     errorDetail = JSON.stringify(errorData);
-                  }
-              } catch (parseError) {
-                  console.error("Could not parse error response body:", parseError);
-                  errorDetail = `Lookup failed with status: ${response.status} ${response.statusText || ''}`;
+try {
+  const response = await fetch(`${RENDER_BACKEND_URL}/routes/chatgpt-food-lookup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ food_name: itemName }),
+  });
+
+  if (!response.ok) {
+    let errorDetail = `AI lookup failed with status: ${response.status}`;
+    try {
+      const errorData = await response.json();
+      if (errorData?.detail) {
+        if (Array.isArray(errorData.detail)) {
+          errorDetail = errorData.detail.map((d: any) => `${d.loc?.join('.') || 'field'} - ${d.msg || 'error'}`).join('; ');
+        } else {
+          errorDetail = String(errorData.detail);
+        }
+      } else {
+        errorDetail = JSON.stringify(errorData);
+      }
+    } catch {
+      errorDetail = `Lookup failed with status: ${response.status} ${response.statusText || ''}`;
+    }
+    throw new Error(errorDetail);
+  }
+
+  const lookupData = await response.json();
+  console.log("Parsed lookup response from Render:", lookupData);
+  // TODO: Apply lookupData to your UI here
+
+} catch (err: any) {
+  console.error("AI food lookup error:", err);
+  toast.error(`AI Lookup Failed: ${err.message || "Unknown error"}`);
+} finally {
+  setIsLookingUp(false);
+}
               }
               console.error("Lookup response not OK:", errorDetail);
               throw new Error(errorDetail); // Throw to be caught by the outer catch block
