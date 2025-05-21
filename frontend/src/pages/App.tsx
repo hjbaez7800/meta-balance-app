@@ -1145,3 +1145,5 @@ try {
     </div>
   );
 }
+}
+    export default App;
