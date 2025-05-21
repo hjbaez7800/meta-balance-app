@@ -623,9 +623,9 @@ try {
       } finally {
           setIsLookingUp(false);
           console.log("handleAutoFillRequest finished.");
-      }
+      } //
   }
-
+} // Close handleAutoFillRequest
 
   // --- Handler for Voice Input --- (Keep as is, with simplified logging)
     const handleListen = () => {
