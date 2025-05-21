@@ -610,7 +610,7 @@ try {
               totalCarbs: formDataFromLookup.totalCarbs,
               fiber: formDataFromLookup.fiber,
               sugar: formDataFromLookup.sugar,
-          }
+            };
             } catch (error) {
               console.log("Triggering individual score calculation with AI data:", nutritionDataForCalc);
               const errorMessage = error.message || "An unexpected error occurred during lookup.";
