@@ -641,6 +641,7 @@ try {
                     const currentTranscript = event.results[0][0].transcript;
                     console.log("Voice input result:", currentTranscript);
                     setTranscript(currentTranscript); // Display transcript
+                    handleAutoFillRequest(currentTranscript); // Automatically trigger AI lookup with the transcript
                     // Automatically trigger AI lookup with the transcript
                     if (currentTranscript.trim()) {
                          handleAutoFillRequest(currentTranscript.trim());
