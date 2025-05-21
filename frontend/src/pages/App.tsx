@@ -563,26 +563,15 @@ try {
     } catch {
       errorDetail = `Lookup failed with status: ${response.status} ${response.statusText || ''}`;
     }
-    throw new Error(errorDetail);
-  try {
-  if (!response.ok) {
-    const errorDetail = `Lookup failed with status: ${response.status}`;
-    console.error("Lookup response not OK:", errorDetail);
-    throw new Error(errorDetail);
-  }
-
-  const lookupData = await response.json();
-  console.log("Parsed lookup response from Render:", lookupData);
-  // TODO: Apply lookupData to your UI here
-
-} catch (err: any) {
-  console.error("AI food lookup error:", err);
-  toast.error(`AI Lookup Failed: ${err.message || "Unknown error"}`);
-} finally {
-  setIsLookingUp(false);
+    if (!response.ok) {
+  const errorDetail = `Lookup failed with status: ${response.status}`;
+  console.error("Lookup response not OK:", errorDetail);
+  throw new Error(errorDetail);
 }
 
-          }
+const lookupData = await response.json();
+console.log("Parsed lookup response from Render:", lookupData);
+// TODO: Apply lookupData to your UI here
 
           // --- Process Successful Response ---
           const lookupData: ExtractedMacrosResponse = await response.json(); // Use the type from types.ts
