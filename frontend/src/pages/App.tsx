@@ -263,8 +263,17 @@ export default function App() {
       console.log("App.tsx: Image file created:", imageFile);
 
       console.log('App.tsx: Sending image to OCR endpoint...');
-      const response = await brain.process_label({ image: imageFile });
-      console.log("App.tsx: Received response from brain.process_label:", response);
+      const RENDER_BACKEND_URL = "https://meta-balance-app.onrender.com";
+
+      const formData = new FormData();
+      formData.append("image", imageFile);
+
+      const response = await fetch(`${RENDER_BACKEND_URL}/routes/ocr/image-upload`, {
+       method: "POST",
+       body: formData,
+      });
+
+      console.log("App.tsx: Received response from Render OCR endpoint:", response);
 
       if (!response.ok) {
         // ... (error handling for OCR response) ...
