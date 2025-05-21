@@ -11,7 +11,6 @@ import { toast } from "sonner";
 import { CastleVerdeIndexDisplay } from "components/CastleVerdeIndexDisplay";
 import { CastleVerdeIndexGauge } from 'components/CastleVerdeIndexGauge';
 import { Macro5Visualization } from "components/Macro5Visualization";
-import brain from "brain";
 import {
   Card,
   CardContent,
