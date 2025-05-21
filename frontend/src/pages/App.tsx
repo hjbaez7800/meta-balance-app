@@ -564,9 +564,15 @@ try {
       errorDetail = `Lookup failed with status: ${response.status} ${response.statusText || ''}`;
     }
     throw new Error(errorDetail);
+  try {
+  const lookupData = await response.json();
+  
+  if (!response.ok) {
+    const errorDetail = `Lookup failed with status: ${response.status}`;
+    console.error("Lookup response not OK:", errorDetail);
+    throw new Error(errorDetail); // Throw to be caught by the outer catch block
   }
 
-  const lookupData = await response.json();
   console.log("Parsed lookup response from Render:", lookupData);
   // TODO: Apply lookupData to your UI here
 
@@ -576,9 +582,7 @@ try {
 } finally {
   setIsLookingUp(false);
 }
-              }
-              console.error("Lookup response not OK:", errorDetail);
-              throw new Error(errorDetail); // Throw to be caught by the outer catch block
+
           }
 
           // --- Process Successful Response ---
