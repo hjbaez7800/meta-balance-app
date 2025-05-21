@@ -619,9 +619,7 @@ try {
               toast.error(`Lookup Failed: ${errorMessage}`, { id: toastId });
             } finally {
               console.log("handleAutoFillRequest finished.");
-  }
-
-  }
+ 
 
   // --- Handler for Voice Input --- (Keep as is, with simplified logging)
     const handleListen = () => {
