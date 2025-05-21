@@ -612,13 +612,12 @@ try {
               sugar: formDataFromLookup.sugar,
           }
           console.log("Triggering individual score calculation with AI data:", nutritionDataForCalc);
-          await calculateIndividualScore(nutritionDataForCalc, itemName); // Use the helper
           const errorMessage = error.message || "An unexpected error occurred during lookup.";
           setLookupError(errorMessage);
           setCalculationItemError(errorMessage); // Also set calc error as analysis couldn't run
           toast.error(`Lookup Failed: ${errorMessage}`, { id: toastId });
-        } finally {
-          setIsLookingUp(false);
+        }
+        finally {
           console.log("handleAutoFillRequest finished.");
         } 
   }
