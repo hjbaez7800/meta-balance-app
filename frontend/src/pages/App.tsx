@@ -617,7 +617,7 @@ try {
           setCalculationItemError(errorMessage); // Also set calc error as analysis couldn't run
           toast.error(`Lookup Failed: ${errorMessage}`, { id: toastId });
         }
-        finally {
+        } finally {
           console.log("handleAutoFillRequest finished.");
         } 
   }
